@@ -1,0 +1,1812 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Muno Mebel</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+
+/* =============================================
+   ЦВЕТОВЫЕ ПЕРЕМЕННЫЕ — СВЕТЛАЯ ТЕМА
+   ============================================= */
+:root {
+  --bg:        #faf8f4;
+  --bg2:       #f2ece0;
+  --bg3:       #e8dece;
+  --surface:   #ffffff;
+  --border:    #ddd5c8;
+  --ink:       #1e1810;
+  --walnut:    #6b4c35;
+  --muted:     #9a8878;
+  --honey:     #c8893a;
+  --honey2:    #b8763a;
+  --text:      #3b2f24;
+  --text2:     #6b4c35;
+  --nav-bg:    rgba(250,248,244,0.97);
+  --shadow:    rgba(59,47,36,0.10);
+  --strip-bg:  #3b2f24;
+  --num-bg:    #3b2f24;
+  --cta-bg:    #3b2f24;
+  --footer-bg: #1e1810;
+}
+
+/* =============================================
+   ЦВЕТОВЫЕ ПЕРЕМЕННЫЕ — ТЁМНАЯ ТЕМА (чёрно-золотая)
+   ============================================= */
+[data-theme="dark"] {
+  --bg:        #0a0906;
+  --bg2:       #111009;
+  --bg3:       #1a1710;
+  --surface:   #161410;
+  --border:    #2a2418;
+  --ink:       #f5edd8;
+  --walnut:    #c8b090;
+  --muted:     #6a5e50;
+  --honey:     #d4944a;
+  --honey2:    #e8a855;
+  --text:      #f0e6d0;
+  --text2:     #c0a880;
+  --nav-bg:    rgba(10,9,6,0.98);
+  --shadow:    rgba(0,0,0,0.5);
+  --strip-bg:  #0a0906;
+  --num-bg:    #0a0906;
+  --cta-bg:    #0a0906;
+  --footer-bg: #050403;
+}
+
+/* =============================================
+   БАЗОВЫЕ СТИЛИ
+   ============================================= */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  overflow-x: hidden;
+  cursor: none;
+  transition: background 0.4s ease, color 0.4s ease;
+}
+
+/* На мобильных — стандартный курсор */
+@media (hover: none) { body { cursor: auto; } }
+
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* =============================================
+   КАСТОМНЫЙ КУРСОР (только десктоп)
+   ============================================= */
+#cur-dot, #cur-ring {
+  position: fixed;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: width 0.2s, height 0.2s, opacity 0.2s;
+}
+#cur-dot  { width: 8px; height: 8px; background: var(--honey); }
+#cur-ring { width: 32px; height: 32px; border: 1.5px solid var(--honey); opacity: 0.6; }
+
+@media (hover: none) {
+  #cur-dot, #cur-ring { display: none; }
+}
+
+/* =============================================
+   НАВИГАЦИЯ
+   ============================================= */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 300;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 60px;
+  transition: background 0.4s, box-shadow 0.4s, padding 0.3s;
+}
+nav.scrolled {
+  background: var(--nav-bg);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 1px 0 var(--border);
+  padding: 14px 60px;
+}
+
+.nav-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--ink);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  flex-shrink: 0;
+}
+.nav-logo-dot {
+  width: 8px; height: 8px;
+  background: var(--honey);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.nav-links {
+  display: flex;
+  gap: 28px;
+  list-style: none;
+}
+.nav-links a {
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text2);
+  text-decoration: none;
+  transition: color 0.3s;
+  position: relative;
+  white-space: nowrap;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -3px; left: 0; right: 0;
+  height: 1px;
+  background: var(--honey);
+  transform: scaleX(0);
+  transition: transform 0.3s;
+}
+.nav-links a:hover { color: var(--honey); }
+.nav-links a:hover::after { transform: scaleX(1); }
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+/* Переключатель языка */
+.lang-sw { display: flex; gap: 4px; }
+.lang-btn {
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 6px 10px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--muted);
+  cursor: none;
+  transition: all 0.3s;
+  font-family: 'Jost', sans-serif;
+}
+.lang-btn.active,
+.lang-btn:hover { border-color: var(--honey); color: var(--honey); background: rgba(200,137,58,0.07); }
+
+/* Переключатель темы */
+.theme-btn {
+  width: 38px; height: 38px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text);
+  cursor: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  transition: border-color 0.3s;
+  flex-shrink: 0;
+}
+.theme-btn:hover { border-color: var(--honey); }
+
+.nav-cta {
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  background: var(--ink);
+  color: var(--bg);
+  padding: 10px 22px;
+  text-decoration: none;
+  transition: background 0.3s;
+  font-family: 'Jost', sans-serif;
+  white-space: nowrap;
+}
+.nav-cta:hover { background: var(--honey); }
+
+/* Мобильное меню — бургер */
+.burger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+}
+.burger span {
+  display: block;
+  width: 24px; height: 2px;
+  background: var(--ink);
+  transition: all 0.3s;
+}
+.burger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+.burger.open span:nth-child(2) { opacity: 0; }
+.burger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+/* Мобильное выдвижное меню */
+.mobile-menu {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: var(--bg);
+  z-index: 250;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s ease;
+}
+.mobile-menu.open { opacity: 1; pointer-events: all; }
+.mobile-menu a {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(28px, 6vw, 44px);
+  color: var(--ink);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+.mobile-menu a:hover { color: var(--honey); }
+.mobile-menu-bottom {
+  position: absolute;
+  bottom: 40px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+/* =============================================
+   HERO
+   ============================================= */
+.hero {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  padding: 120px 60px 60px;
+  background: var(--bg2);
+  position: relative;
+  overflow: hidden;
+  gap: 40px;
+}
+
+.hero-texture {
+  position: absolute; inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(circle, var(--border) 1px, transparent 1px);
+  background-size: 28px 28px;
+  animation: texDrift 35s linear infinite;
+  opacity: 0.6;
+}
+[data-theme="dark"] .hero-texture { opacity: 0.2; }
+@keyframes texDrift {
+  from { background-position: 0 0; }
+  to   { background-position: 56px 56px; }
+}
+
+.hero-left { position: relative; z-index: 2; }
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 8px 18px;
+  margin-bottom: 28px;
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--text2);
+  opacity: 0;
+  animation: fadeUp 0.7s 0.2s ease both;
+}
+
+.hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(44px, 5.5vw, 86px);
+  font-weight: 500;
+  line-height: 1.0;
+  color: var(--ink);
+  margin-bottom: 22px;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.4s ease both;
+}
+.hero-title em { font-style: italic; color: var(--honey); }
+.hero-title .indent { padding-left: clamp(24px, 4vw, 56px); display: block; }
+
+.hero-sub {
+  font-size: clamp(14px, 1.5vw, 16px);
+  line-height: 1.9;
+  color: var(--text2);
+  max-width: 420px;
+  margin-bottom: 40px;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.6s ease both;
+}
+
+.hero-btns {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  flex-wrap: wrap;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.8s ease both;
+}
+
+.btn-dark {
+  background: var(--ink);
+  color: var(--bg);
+  padding: 14px 36px;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-family: 'Jost', sans-serif;
+  transition: background 0.3s;
+  display: inline-block;
+}
+.btn-dark:hover { background: var(--honey); }
+
+.btn-ghost {
+  font-size: 13px;
+  letter-spacing: 1px;
+  color: var(--text2);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: color 0.3s;
+}
+.btn-ghost:hover { color: var(--honey); }
+.ghost-arr { transition: transform 0.3s; }
+.btn-ghost:hover .ghost-arr { transform: translateX(5px); }
+
+/* Hero правая часть — визуальный блок */
+.hero-right {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+  opacity: 0;
+  animation: fadeLeft 1s 0.5s ease both;
+}
+
+.hv-wrap {
+  position: relative;
+  width: min(440px, 100%);
+  height: clamp(360px, 45vw, 540px);
+}
+
+/* =============================================
+   rasmde — ГЛАВНОЕ ФОТО В ГЕРОЕ
+   Замени содержимое .hv-main на свой <img>
+   ============================================= */
+.hv-main {
+  position: absolute;
+  top: 0; left: 0;
+  right: clamp(40px, 8%, 60px);
+  bottom: 0;
+  background: var(--ink);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+[data-theme="dark"] .hv-main { border: 1px solid var(--border); }
+.hv-main::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(145deg, rgba(200,137,58,0.18), transparent 60%);
+  z-index: 1;
+  pointer-events: none;
+}
+/* === rasmde: сюда вставь <img src="..." alt="..."> === */
+.hv-main-ph {
+  width: calc(100% - 32px);
+  height: calc(100% - 32px);
+  border: 2px dashed rgba(200,137,58,0.3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: rgba(200,137,58,0.45);
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-family: 'Jost', sans-serif;
+  z-index: 2;
+  position: relative;
+}
+.hv-main-ph-icon { font-size: 32px; opacity: 0.4; }
+
+.hv-tag {
+  position: absolute;
+  bottom: 22px; left: 22px;
+  background: var(--honey);
+  color: #fff;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  padding: 7px 16px;
+  z-index: 3;
+}
+
+/* =============================================
+   rasmde — МАЛЕНЬКОЕ ФОТО ВВЕРХУ СПРАВА
+   Замени .hv-top на <img>
+   ============================================= */
+.hv-top {
+  position: absolute;
+  top: 22px; right: 0;
+  width: clamp(90px, 20%, 115px);
+  height: clamp(75px, 15%, 95px);
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* === rasmde: сюда вставь <img src="..." alt="..."> === */
+.hv-top-ph {
+  width: calc(100% - 10px);
+  height: calc(100% - 10px);
+  border: 1px dashed var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.hv-stat {
+  position: absolute;
+  right: 0;
+  bottom: clamp(40px, 8%, 56px);
+  width: clamp(120px, 28%, 155px);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: clamp(14px, 3%, 18px);
+  box-shadow: 0 12px 32px var(--shadow);
+}
+.hv-stat-num {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(28px, 4vw, 36px);
+  color: var(--honey);
+  line-height: 1;
+}
+.hv-stat-lbl {
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text2);
+  margin-top: 4px;
+}
+
+/* =============================================
+   БЕГУЩАЯ СТРОКА
+   ============================================= */
+.strip {
+  background: var(--strip-bg);
+  overflow: hidden;
+  border-top: 3px solid var(--honey);
+}
+.strip-track {
+  display: flex;
+  animation: stripMove 20s linear infinite;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+@keyframes stripMove {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.strip-item {
+  font-family: 'Playfair Display', serif;
+  font-size: 14px;
+  font-style: italic;
+  color: rgba(200,137,58,0.6);
+  padding: 15px 36px;
+  display: flex;
+  align-items: center;
+  gap: 36px;
+  border-right: 1px solid rgba(200,137,58,0.1);
+  flex-shrink: 0;
+}
+.strip-item strong {
+  font-style: normal;
+  font-family: 'Jost', sans-serif;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--honey);
+}
+
+/* =============================================
+   ОБЩИЕ ХЕЛПЕРЫ ДЛЯ СЕКЦИЙ
+   ============================================= */
+.sec-pad { padding: 100px 60px; }
+
+.sec-label {
+  font-size: 10px;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--honey);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.sec-label::before {
+  content: '';
+  width: 26px; height: 1.5px;
+  background: var(--honey);
+  flex-shrink: 0;
+}
+
+.sec-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(30px, 3.5vw, 52px);
+  font-weight: 500;
+  line-height: 1.1;
+  color: var(--ink);
+}
+.sec-title em { font-style: italic; color: var(--honey); }
+
+/* =============================================
+   О НАС
+   ============================================= */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(40px, 6vw, 80px);
+  align-items: center;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.about-text-col .sec-title { margin-bottom: 24px; }
+
+.about-p {
+  font-size: clamp(14px, 1.5vw, 15px);
+  line-height: 1.9;
+  color: var(--text2);
+  margin-bottom: 16px;
+}
+
+.about-quote {
+  margin: 28px 0;
+  border-left: 3px solid var(--honey);
+  padding-left: 22px;
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(16px, 2vw, 20px);
+  font-style: italic;
+  color: var(--ink);
+  line-height: 1.6;
+}
+.about-sig {
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text2);
+  margin-top: 6px;
+  font-style: normal;
+  font-family: 'Jost', sans-serif;
+  display: block;
+}
+
+/* Правая колонка — сетка фото */
+.about-photo-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 10px;
+  height: clamp(320px, 40vw, 480px);
+}
+
+/* =============================================
+   rasmde — БОЛЬШОЕ ФОТО В СЕКЦИИ "О НАС"
+   Замени .ap-tall на <img>
+   ============================================= */
+.ap-box {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  position: relative;
+  transition: transform 0.4s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ap-box:hover { transform: scale(1.02); }
+.ap-box.tall { grid-row: span 2; background: var(--ink); }
+[data-theme="dark"] .ap-box.tall { border-color: var(--border); }
+/* === rasmde: в .ap-box.tall вставь <img src="..." alt="..."> === */
+/* === rasmde: в каждый .ap-box (не tall) вставь <img src="..." alt="..."> === */
+.ap-ph {
+  width: calc(100% - 16px);
+  height: calc(100% - 16px);
+  border: 1.5px dashed var(--border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  color: var(--muted);
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+.ap-box.tall .ap-ph {
+  border-color: rgba(200,137,58,0.2);
+  color: rgba(200,137,58,0.4);
+}
+.ap-ph-icon { font-size: 20px; opacity: 0.3; }
+.ap-lbl {
+  position: absolute;
+  bottom: 10px; left: 10px;
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--text2);
+  background: var(--surface);
+  padding: 4px 10px;
+}
+.ap-box.tall .ap-lbl {
+  color: #fff;
+  background: rgba(200,137,58,0.9);
+}
+
+/* =============================================
+   ЦЕННОСТИ
+   ============================================= */
+.vals-inner { max-width: 1100px; margin: 0 auto; }
+.vals-header { text-align: center; margin-bottom: 60px; }
+.vals-header .sec-label { justify-content: center; }
+.vals-header .sec-title { margin-bottom: 14px; }
+.vals-sub {
+  font-size: 15px;
+  color: var(--text2);
+  max-width: 460px;
+  margin: 0 auto;
+  line-height: 1.8;
+}
+
+.vals-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+}
+
+.val-card {
+  background: var(--surface);
+  padding: clamp(32px, 4vw, 48px) clamp(24px, 3vw, 36px);
+  border: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.35s, box-shadow 0.35s;
+}
+.val-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--honey);
+  transform: scaleX(0);
+  transition: transform 0.35s;
+}
+.val-card:hover { transform: translateY(-6px); box-shadow: 0 20px 48px var(--shadow); }
+.val-card:hover::after { transform: scaleX(1); }
+.val-icon { font-size: 36px; margin-bottom: 18px; display: block; }
+.val-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(18px, 2vw, 21px);
+  margin-bottom: 10px;
+  color: var(--ink);
+}
+.val-text { font-size: 13px; line-height: 1.8; color: var(--text2); }
+
+/* =============================================
+   ЦИФРЫ
+   ============================================= */
+.nums-section {
+  background: var(--num-bg);
+  padding: 70px 60px;
+  transition: background 0.4s;
+}
+[data-theme="dark"] .nums-section {
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.nums-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: rgba(200,137,58,0.12);
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.num-item {
+  background: var(--num-bg);
+  padding: clamp(32px, 4vw, 44px) clamp(20px, 3vw, 32px);
+  text-align: center;
+  transition: background 0.3s;
+}
+.num-item:hover { background: rgba(200,137,58,0.07); }
+.num-val {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(36px, 5vw, 68px);
+  color: var(--honey);
+  line-height: 1;
+}
+.num-lbl {
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(200,137,58,0.45);
+  margin-top: 10px;
+}
+
+/* =============================================
+   КАК МЫ РАБОТАЕМ
+   ============================================= */
+.proc-inner { max-width: 1280px; margin: 0 auto; }
+.proc-steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 28px;
+  position: relative;
+  margin-top: 56px;
+}
+.proc-steps::before {
+  content: '';
+  position: absolute;
+  top: 28px;
+  left: 7%; right: 7%;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--border), var(--honey), var(--border), transparent);
+}
+.proc-step { padding-top: 12px; }
+.proc-circle {
+  width: 54px; height: 54px;
+  border: 2px solid var(--border);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 17px;
+  color: var(--honey);
+  margin-bottom: 24px;
+  background: var(--bg);
+  position: relative;
+  z-index: 1;
+  transition: all 0.3s;
+}
+.proc-step:hover .proc-circle {
+  background: var(--honey);
+  border-color: var(--honey);
+  color: #fff;
+}
+.proc-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(17px, 1.8vw, 20px);
+  margin-bottom: 10px;
+  color: var(--ink);
+}
+.proc-text { font-size: 13px; line-height: 1.8; color: var(--text2); }
+
+/* =============================================
+   КОМАНДА
+   ============================================= */
+.team-section { background: var(--bg2); }
+.team-inner { max-width: 1100px; margin: 0 auto; }
+.team-header { text-align: center; margin-bottom: 56px; }
+.team-header .sec-label { justify-content: center; }
+.team-header .sec-title { margin-bottom: 0; }
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+}
+
+.team-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  transition: transform 0.35s, box-shadow 0.35s;
+}
+.team-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px var(--shadow);
+}
+
+/* =============================================
+   rasmde — ФОТО ЧЛЕНОВ КОМАНДЫ
+   Замени .team-photo на <img>
+   ============================================= */
+.team-photo {
+  height: clamp(160px, 20vw, 200px);
+  background: var(--bg3);
+  border-bottom: 1px solid var(--border);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* === rasmde: в каждый .team-photo вставь <img src="..." alt="Имя сотрудника"> === */
+.team-photo-ph {
+  width: calc(100% - 24px);
+  height: calc(100% - 24px);
+  border: 1.5px dashed var(--border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.team-photo-icon { font-size: 22px; opacity: 0.25; }
+.team-photo-label {
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.team-info { padding: clamp(20px, 3vw, 26px); }
+.team-name {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(18px, 2vw, 21px);
+  margin-bottom: 5px;
+  color: var(--ink);
+}
+.team-role {
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--honey);
+  margin-bottom: 12px;
+}
+.team-bio { font-size: 13px; line-height: 1.7; color: var(--text2); }
+
+/* =============================================
+   ЛОКАЦИЯ
+   ============================================= */
+.loc-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(40px, 6vw, 70px);
+  align-items: start;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.loc-desc {
+  font-size: clamp(14px, 1.5vw, 15px);
+  line-height: 1.9;
+  color: var(--text2);
+  margin-bottom: 34px;
+}
+.loc-items { display: flex; flex-direction: column; gap: 18px; }
+.loc-row { display: flex; gap: 14px; }
+.loc-icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
+.loc-rtitle {
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--honey);
+  margin-bottom: 3px;
+}
+.loc-rval { font-size: 14px; color: var(--text); line-height: 1.5; }
+
+.map-box {
+  position: relative;
+  height: clamp(320px, 40vw, 460px);
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+.map-box iframe {
+  width: 100%; height: 100%;
+  border: none;
+  filter: sepia(20%) contrast(92%) saturate(80%);
+}
+[data-theme="dark"] .map-box iframe {
+  filter: invert(88%) hue-rotate(180deg) saturate(40%) brightness(65%);
+}
+.map-pin {
+  position: absolute;
+  top: 16px; left: 16px;
+  background: var(--nav-bg);
+  border: 1px solid var(--honey);
+  padding: 9px 16px;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text);
+  backdrop-filter: blur(4px);
+  margin-left: 50px;
+}
+
+/* =============================================
+   CTA
+   ============================================= */
+.cta-section {
+  background: var(--cta-bg);
+  padding: clamp(70px, 10vw, 110px) 60px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.4s;
+}
+[data-theme="dark"] .cta-section { border-top: 1px solid var(--border); }
+
+.cta-rings span {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(200,137,58,0.1);
+  top: 50%; left: 50%;
+}
+.cta-rings span:nth-child(1) { width: 380px; height: 380px; margin: -190px; animation: rPulse 4s ease-in-out infinite; }
+.cta-rings span:nth-child(2) { width: 640px; height: 640px; margin: -320px; animation: rPulse 4s 1.3s ease-in-out infinite; }
+.cta-rings span:nth-child(3) { width: 900px; height: 900px; margin: -450px; animation: rPulse 4s 2.6s ease-in-out infinite; }
+@keyframes rPulse {
+  0%,100% { opacity: 0.35; transform: scale(1); }
+  50%      { opacity: 0.7;  transform: scale(1.04); }
+}
+
+.cta-inner { position: relative; z-index: 1; max-width: 600px; margin: 0 auto; }
+.cta-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(34px, 5vw, 66px);
+  color: #f2ece0;
+  line-height: 1.1;
+  margin-bottom: 18px;
+}
+[data-theme="dark"] .cta-title { color: var(--ink); }
+.cta-title em { font-style: italic; color: var(--honey); }
+.cta-text {
+  font-size: 15px;
+  color: rgba(242,236,224,0.5);
+  line-height: 1.8;
+  margin-bottom: 44px;
+}
+[data-theme="dark"] .cta-text { color: var(--text2); }
+.cta-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+.btn-honey {
+  background: var(--honey);
+  color: #fff;
+  padding: 14px 40px;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-family: 'Jost', sans-serif;
+  transition: background 0.3s;
+  border: none;
+  cursor: none;
+  display: inline-block;
+}
+.btn-honey:hover { background: var(--honey2); }
+
+.btn-outline-light {
+  border: 1px solid rgba(242,236,224,0.25);
+  color: rgba(242,236,224,0.75);
+  padding: 14px 40px;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-family: 'Jost', sans-serif;
+  transition: all 0.3s;
+  display: inline-block;
+}
+[data-theme="dark"] .btn-outline-light {
+  border-color: var(--border);
+  color: var(--text2);
+}
+.btn-outline-light:hover { border-color: var(--honey); color: var(--honey); }
+
+/* =============================================
+   ФУТЕР
+   ============================================= */
+footer {
+  background: var(--footer-bg);
+  padding: 40px 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.footer-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  color: rgba(242,236,224,0.85);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.footer-logo span { color: var(--honey); }
+.footer-nav {
+  display: flex;
+  gap: 22px;
+  list-style: none;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.footer-nav a {
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(242,236,224,0.3);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+.footer-nav a:hover { color: var(--honey); }
+.footer-copy { font-size: 10px; color: rgba(242,236,224,0.2); }
+
+/* =============================================
+   АНИМАЦИИ ПОЯВЛЕНИЯ
+   ============================================= */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.reveal.on { opacity: 1; transform: translateY(0); }
+.d1 { transition-delay: 0.1s; }
+.d2 { transition-delay: 0.2s; }
+.d3 { transition-delay: 0.3s; }
+.d4 { transition-delay: 0.4s; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(26px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeLeft {
+  from { opacity: 0; transform: translateX(36px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* =============================================
+   АДАПТИВ — ПЛАНШЕТ (max 1024px)
+   ============================================= */
+@media (max-width: 1024px) {
+  nav { padding: 18px 32px; }
+  nav.scrolled { padding: 12px 32px; }
+
+  .nav-links { display: none; }
+  .nav-cta   { display: none; }
+  .burger    { display: flex; }
+
+  .hero { padding: 100px 32px 60px; gap: 36px; }
+
+  .about-grid { grid-template-columns: 1fr; gap: 40px; }
+  .about-photo-grid { height: 280px; }
+
+  .vals-grid { grid-template-columns: 1fr 1fr; }
+
+  .nums-grid { grid-template-columns: repeat(2, 1fr); }
+
+  .proc-steps { grid-template-columns: 1fr 1fr; gap: 24px; }
+  .proc-steps::before { display: none; }
+
+  .team-grid { grid-template-columns: 1fr 1fr; }
+
+  .loc-inner { grid-template-columns: 1fr; gap: 40px; }
+
+  .sec-pad { padding: 72px 32px; }
+  .nums-section { padding: 60px 32px; }
+  .cta-section  { padding: 70px 32px; }
+  footer        { padding: 36px 32px; }
+}
+
+/* =============================================
+   АДАПТИВ — МОБИЛЬНЫЙ (max 640px)
+   ============================================= */
+@media (max-width: 640px) {
+  nav { padding: 16px 20px; }
+  nav.scrolled { padding: 12px 20px; }
+
+  /* Скрываем лишнее в nav-right на маленьких экранах */
+  .lang-sw { gap: 3px; }
+  .lang-btn { padding: 5px 7px; font-size: 10px; }
+  .theme-btn { width: 32px; height: 32px; font-size: 14px; }
+
+  .hero {
+    grid-template-columns: 1fr;
+    padding: 90px 20px 50px;
+    gap: 36px;
+  }
+  .hero-right { justify-content: center; }
+  .hv-wrap {
+    width: 100%;
+    height: clamp(260px, 70vw, 340px);
+  }
+
+  .about-photo-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    height: auto;
+    gap: 8px;
+  }
+  .ap-box { height: 180px; }
+  .ap-box.tall { grid-row: span 1; height: 220px; }
+
+  .vals-grid { grid-template-columns: 1fr; gap: 12px; }
+
+  .nums-grid { grid-template-columns: 1fr 1fr; }
+  .num-val { font-size: 40px; }
+
+  .proc-steps { grid-template-columns: 1fr; gap: 20px; }
+
+  .team-grid { grid-template-columns: 1fr; }
+
+  .sec-pad { padding: 60px 20px; }
+  .nums-section { padding: 52px 20px; }
+  .cta-section  { padding: 60px 20px; }
+  footer { flex-direction: column; text-align: center; padding: 32px 20px; gap: 16px; }
+  .footer-nav { justify-content: center; }
+
+  .cta-rings span:nth-child(2),
+  .cta-rings span:nth-child(3) { display: none; }
+}
+
+/* =============================================
+   АДАПТИВ — ОЧЕНЬ МАЛЕНЬКИЙ (max 380px)
+   ============================================= */
+@media (max-width: 380px) {
+  .hero-title { font-size: 38px; }
+  .hero-badge { font-size: 9px; padding: 6px 12px; }
+  .nums-grid  { grid-template-columns: 1fr; }
+  .lang-sw    { display: none; }
+}
+
+</style>
+</head>
+<body>
+
+<!-- КАСТОМНЫЙ КУРСОР -->
+<div id="cur-dot"></div>
+<div id="cur-ring"></div>
+
+<!-- МОБИЛЬНОЕ МЕНЮ -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about"    data-i18n="nav_about"    onclick="closeMobile()">О нас</a>
+  <a href="#values"   data-i18n="nav_values"   onclick="closeMobile()">Ценности</a>
+  <a href="#process"  data-i18n="nav_process"  onclick="closeMobile()">Процесс</a>
+  <a href="#team"     data-i18n="nav_team"     onclick="closeMobile()">Команда</a>
+  <a href="#location" data-i18n="nav_location" onclick="closeMobile()">Магазин</a>
+  <div class="mobile-menu-bottom">
+    <div class="lang-sw">
+      <button class="lang-btn active" data-lang="ru" onclick="applyLang('ru');closeMobile()">RU</button>
+      <button class="lang-btn" data-lang="en" onclick="applyLang('en');closeMobile()">EN</button>
+      <button class="lang-btn" data-lang="uz" onclick="applyLang('uz');closeMobile()">UZ</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     НАВИГАЦИЯ
+══════════════════════════════════ -->
+<nav id="nav">
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-dot"></div>
+    Muno Mebel
+  </a>
+
+  <ul class="nav-links">
+    <li><a href="#about"    data-i18n="nav_about">О нас</a></li>
+    <li><a href="#values"   data-i18n="nav_values">Ценности</a></li>
+    <li><a href="#process"  data-i18n="nav_process">Процесс</a></li>
+    <li><a href="#team"     data-i18n="nav_team">Команда</a></li>
+    <li><a href="#location" data-i18n="nav_location">Магазин</a></li>
+  </ul>
+
+  <div class="nav-right">
+    <div class="lang-sw">
+      <button class="lang-btn active" data-lang="ru">RU</button>
+      <button class="lang-btn"        data-lang="en">EN</button>
+      <button class="lang-btn"        data-lang="uz">UZ</button>
+    </div>
+    <button class="theme-btn" id="themeBtn">🌙</button>
+    <a href="#location" class="nav-cta" data-i18n="nav_contact">Связаться</a>
+    <button class="burger" id="burgerBtn" aria-label="Меню">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════
+     HERO
+══════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-texture"></div>
+
+  <div class="hero-left">
+    <div class="hero-badge">🌿 <span data-i18n="hero_badge">Ташкент · С 2010 года</span></div>
+
+    <h1 class="hero-title">
+      <span data-i18n="hero_t1">Мебель,</span><br>
+      <span class="indent" data-i18n="hero_t2">которая</span><br>
+      <em data-i18n="hero_t3">живёт</em>&nbsp;<span data-i18n="hero_t4">в доме</span>
+    </h1>
+
+    <p class="hero-sub" data-i18n="hero_sub">
+      Muno Mebel — семейная мастерская в Ташкенте. Мы создаём мебель с душой: продуманную, тёплую и долговечную.
+    </p>
+
+    <div class="hero-btns">
+      <a href="#about"    class="btn-dark"  data-i18n="hero_btn1">Узнать о нас</a>
+      <a href="#location" class="btn-ghost">
+        <span data-i18n="hero_btn2">Найти магазин</span>
+        <span class="ghost-arr">→</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hv-wrap">
+
+      <!-- === rasmde: ГЛАВНОЕ ФОТО ГЕРОЯ ===
+           Удали .hv-main-ph и вставь внутрь .hv-main:
+           <img src="путь/к/фото.jpg" alt="Мебель Muno Mebel">
+      -->
+      <div class="hv-main">
+        <img src="https://i.pinimg.com/236x/34/68/96/346896828379c3d1da64b1ebb5569e72.jpg" alt="">
+      </div>
+
+      <!-- === rasmde: МАЛЕНЬКОЕ ФОТО ВВЕРХУ СПРАВА ===
+           Удали .hv-top-ph и вставь внутрь .hv-top:
+           <img src="путь/к/фото2.jpg" alt="Деталь мебели">
+      -->
+      <div class="hv-top">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNW3awv7h00adhhkuwtKTrtPECSVkY5ZXMPA&s" alt="">
+      </div>
+
+      <div class="hv-stat">
+        <div class="hv-stat-num">15+</div>
+        <div class="hv-stat-lbl" data-i18n="hero_years">Лет опыта</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- БЕГУЩАЯ СТРОКА -->
+<div class="strip" aria-hidden="true">
+  <div class="strip-track">
+    <div class="strip-item"><strong data-i18n="strip_s">Диваны</strong> <span data-i18n="strip_hand">Ручная работа</span></div>
+    <div class="strip-item"><strong data-i18n="strip_c">Кресла</strong> <span data-i18n="strip_nat">Натуральные материалы</span></div>
+    <div class="strip-item"><strong data-i18n="strip_t">Столы</strong> <span data-i18n="strip_wood">Массив дерева</span></div>
+    <div class="strip-item"><strong data-i18n="strip_b">Кровати</strong> <span data-i18n="strip_custom">Индивидуальный заказ</span></div>
+    <div class="strip-item"><strong data-i18n="strip_w">Шкафы</strong> <span data-i18n="strip_gar">Гарантия 5 лет</span></div>
+    <div class="strip-item"><strong data-i18n="strip_s">Диваны</strong> <span data-i18n="strip_hand">Ручная работа</span></div>
+    <div class="strip-item"><strong data-i18n="strip_c">Кресла</strong> <span data-i18n="strip_nat">Натуральные материалы</span></div>
+    <div class="strip-item"><strong data-i18n="strip_t">Столы</strong> <span data-i18n="strip_wood">Массив дерева</span></div>
+    <div class="strip-item"><strong data-i18n="strip_b">Кровати</strong> <span data-i18n="strip_custom">Индивидуальный заказ</span></div>
+    <div class="strip-item"><strong data-i18n="strip_w">Шкафы</strong> <span data-i18n="strip_gar">Гарантия 5 лет</span></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     О НАС
+══════════════════════════════════ -->
+<section id="about" class="sec-pad">
+  <div class="about-grid">
+
+    <div class="about-text-col reveal">
+      <div class="sec-label" data-i18n="about_label">История бренда</div>
+      <h2 class="sec-title" data-i18n="about_title">Мы делаем мебель так,<br>как делали <em>деды</em></h2>
+      <p class="about-p" data-i18n="about_p1">Muno Mebel начался в 2010 году с небольшой мастерской в Ташкенте. Основатель Мухаммад Нуров вложил в дело всё, что умел — уважение к дереву, честный труд и любовь к красивым вещам.</p>
+      <p class="about-p" data-i18n="about_p2">Сегодня мы — команда из 18 мастеров. Подход не изменился: никаких шаблонов, только живая работа руками и внимание к каждой детали.</p>
+      <blockquote class="about-quote">
+        <span data-i18n="about_quote">«Хорошая мебель — это не мода. Это память, которая передаётся из поколения в поколение.»</span>
+        <cite class="about-sig" data-i18n="about_cite">— Мухаммад Нуров, основатель</cite>
+      </blockquote>
+    </div>
+
+    <div class="reveal d2">
+      <div class="about-photo-grid">
+
+        <!-- === rasmde: БОЛЬШОЕ ФОТО "О НАС" (левая колонка, высокое) ===
+             Удали .ap-ph и вставь внутрь .ap-box.tall:
+             <img src="путь/к/фото.jpg" alt="Мастерская">
+        -->
+        <div class="ap-box tall">
+          <img src="https://www.tessutidelarte.com/media/catalog/product/cache/e4d64343b1bc593f1c5348fe05efa4a6/w/h/whatsapp_image_2021-05-28_at_13.32.02.jpeg" alt="">
+        </div>
+
+        <!-- === rasmde: МАЛЕНЬКОЕ ФОТО "О НАС" — ВЕРХНЕЕ ===
+             Удали .ap-ph и вставь внутрь этого .ap-box:
+             <img src="путь/к/фото.jpg" alt="Ручной труд">
+        -->
+        <div class="ap-box">
+          <img src="https://vsedlyastroiki.ru/pictures/images/3(96).jpg" alt="">
+        </div>
+
+        <!-- === rasmde: МАЛЕНЬКОЕ ФОТО "О НАС" — НИЖНЕЕ ===
+             Удали .ap-ph и вставь внутрь этого .ap-box:
+             <img src="путь/к/фото.jpg" alt="Экологично">
+        -->
+        <div class="ap-box">
+          <img src="https://www.ecocertify.org/images/sustainable-furniture-and-home-decor.jpg" alt="">
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     ЦЕННОСТИ
+══════════════════════════════════ -->
+<section id="values" class="sec-pad" style="background: var(--bg2);">
+  <div class="vals-inner">
+    <div class="vals-header reveal">
+      <div class="sec-label" data-i18n="val_label">Наши принципы</div>
+      <h2 class="sec-title" data-i18n="val_title">Почему выбирают Muno Mebel</h2>
+      <p class="vals-sub" data-i18n="val_sub">Три вещи, которые мы никогда не компромиссим.</p>
+    </div>
+    <div class="vals-grid">
+      <div class="val-card reveal d1">
+        <span class="val-icon">🌳</span>
+        <h3 class="val-title" data-i18n="v1_t">Только натуральное</h3>
+        <p class="val-text"  data-i18n="v1_p">Работаем с массивом дуба, ясеня и ореха. Никаких ДСП. Натуральное дерево дышит и служит десятилетиями.</p>
+      </div>
+      <div class="val-card reveal d2">
+        <span class="val-icon">🤝</span>
+        <h3 class="val-title" data-i18n="v2_t">Честная цена</h3>
+        <p class="val-text"  data-i18n="v2_p">Производим сами — без посредников. Смета прозрачна с первого дня, никаких скрытых доплат.</p>
+      </div>
+      <div class="val-card reveal d3">
+        <span class="val-icon">🎨</span>
+        <h3 class="val-title" data-i18n="v3_t">Под ваш интерьер</h3>
+        <p class="val-text"  data-i18n="v3_p">Каждый заказ — отдельный проект. Мебель под размер вашей комнаты, ваш цвет и образ жизни.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ЦИФРЫ -->
+<div class="nums-section">
+  <div class="nums-grid">
+    <div class="num-item reveal d1"><div class="num-val">15+</div><div class="num-lbl" data-i18n="n1">Лет на рынке</div></div>
+    <div class="num-item reveal d2"><div class="num-val">1 200</div><div class="num-lbl" data-i18n="n2">Довольных семей</div></div>
+    <div class="num-item reveal d3"><div class="num-val">18</div><div class="num-lbl" data-i18n="n3">Мастеров</div></div>
+    <div class="num-item reveal d4"><div class="num-val">5</div><div class="num-lbl" data-i18n="n4">Лет гарантии</div></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     КАК МЫ РАБОТАЕМ
+══════════════════════════════════ -->
+<section id="process" class="sec-pad">
+  <div class="proc-inner">
+    <div class="reveal">
+      <div class="sec-label" data-i18n="proc_label">Как мы работаем</div>
+      <h2 class="sec-title" data-i18n="proc_title">От встречи до <em>готовой мебели</em></h2>
+    </div>
+    <div class="proc-steps">
+      <div class="proc-step reveal d1">
+        <div class="proc-circle">01</div>
+        <h3 class="proc-title" data-i18n="s1_t">Встреча</h3>
+        <p class="proc-text"  data-i18n="s1_p">Приезжаем к вам или принимаем в шоуруме. Слушаем, задаём вопросы, замеряем. Без давления.</p>
+      </div>
+      <div class="proc-step reveal d2">
+        <div class="proc-circle">02</div>
+        <h3 class="proc-title" data-i18n="s2_t">Проект</h3>
+        <p class="proc-text"  data-i18n="s2_p">3D-визуализация вашей мебели в вашем интерьере до начала работы.</p>
+      </div>
+      <div class="proc-step reveal d3">
+        <div class="proc-circle">03</div>
+        <h3 class="proc-title" data-i18n="s3_t">Изготовление</h3>
+        <p class="proc-text"  data-i18n="s3_p">Мастера работают руками. Каждая деталь проверяется трижды. Срок — 4–6 недель.</p>
+      </div>
+      <div class="proc-step reveal d4">
+        <div class="proc-circle">04</div>
+        <h3 class="proc-title" data-i18n="s4_t">Доставка</h3>
+        <p class="proc-text"  data-i18n="s4_p">Привозим, собираем, убираем за собой. Гарантия 5 лет с первого дня.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     КОМАНДА
+══════════════════════════════════ -->
+<section id="team" class="sec-pad team-section">
+  <div class="team-inner">
+    <div class="team-header reveal">
+      <div class="sec-label" data-i18n="team_label">Наша команда</div>
+      <h2 class="sec-title" data-i18n="team_title">Люди за мебелью</h2>
+    </div>
+    <div class="team-grid">
+
+      <div class="team-card reveal d1">
+        <!-- === rasmde: ФОТО СОТРУДНИКА 1 ===
+             Удали .team-photo-ph и вставь внутрь .team-photo:
+             <img src="путь/к/фото-мухаммад.jpg" alt="Мухаммад Нуров">
+        -->
+        <div class="team-photo">
+          <div class="team-photo-ph">
+            <div class="team-photo-icon">🖼</div>
+            <img src="https://srccs.su/wp-content/uploads/2017/08/keis7.jpg" alt="">
+          </div>
+        </div>
+        <div class="team-info">
+          <h3 class="team-name">Мухаммад Нуров</h3>
+          <div class="team-role" data-i18n="t1_role">Основатель · Мастер</div>
+          <p class="team-bio"  data-i18n="t1_bio">25 лет работы с деревом. Начинал с отцовской мастерской, сегодня руководит командой.</p>
+        </div>
+      </div>
+
+      <div class="team-card reveal d2">
+        <!-- === rasmde: ФОТО СОТРУДНИКА 2 ===
+             Удали .team-photo-ph и вставь внутрь .team-photo:
+             <img src="путь/к/фото-дилноза.jpg" alt="Дилноза Юсупова">
+        -->
+        <div class="team-photo">
+          <div class="team-photo-ph">
+            <div class="team-photo-icon">🖼</div>
+            <img src="https://adpo-edu.ru/uplfile/menedzher-proektov.png" alt="">
+          </div>
+        </div>
+        <div class="team-info">
+          <h3 class="team-name">Дилноза Юсупова</h3>
+          <div class="team-role" data-i18n="t2_role">Главный дизайнер</div>
+          <p class="team-bio"  data-i18n="t2_bio">10 лет опыта в интерьерном дизайне. Превращает идеи в точные технические задания.</p>
+        </div>
+      </div>
+
+      <div class="team-card reveal d3">
+        <!-- === rasmde: ФОТО СОТРУДНИКА 3 ===
+             Удали .team-photo-ph и вставь внутрь .team-photo:
+             <img src="путь/к/фото-акбар.jpg" alt="Акбар Рашидов">
+        -->
+        <div class="team-photo">
+          <div class="team-photo-ph">
+            <div class="team-photo-icon">🖼</div>
+            <img src="https://www.kickidler.ru/assets/images/articles/2353.jpg" alt="">
+          </div>
+        </div>
+        <div class="team-info">
+          <h3 class="team-name">Акбар Рашидов</h3>
+          <div class="team-role" data-i18n="t3_role">Менеджер проектов</div>
+          <p class="team-bio"  data-i18n="t3_bio">Следит за сроками. Первый ответит на ваш звонок.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     ЛОКАЦИЯ
+══════════════════════════════════ -->
+<section id="location" class="sec-pad">
+  <div class="loc-inner">
+
+    <div class="reveal">
+      <div class="sec-label" data-i18n="loc_label">Наш шоурум</div>
+      <h2 class="sec-title" style="margin-bottom:20px" data-i18n="loc_title">Приходи, потрогай <em>вживую</em></h2>
+      <p class="loc-desc" data-i18n="loc_desc">В нашем шоуруме вы можете увидеть все коллекции, почувствовать материалы и поговорить с дизайнером. Вход свободный — будем рады.</p>
+      <div class="loc-items">
+        <div class="loc-row">
+          <div class="loc-icon">📍</div>
+          <div>
+            <div class="loc-rtitle" data-i18n="loc_addr_t">Адрес</div>
+            <div class="loc-rval">Ташкент, ул. Амира Темура, 107Б<br>ТЦ «Tashkent City», 2-й этаж</div>
+          </div>
+        </div>
+        <div class="loc-row">
+          <div class="loc-icon">🕐</div>
+          <div>
+            <div class="loc-rtitle" data-i18n="loc_hours_t">Часы работы</div>
+            <div class="loc-rval" data-i18n="loc_hours_v">Пн–Сб: 10:00–20:00 · Вс: 11:00–18:00</div>
+          </div>
+        </div>
+        <div class="loc-row">
+          <div class="loc-icon">📞</div>
+          <div>
+            <div class="loc-rtitle" data-i18n="loc_phone_t">Телефон</div>
+            <div class="loc-rval">+998 71 200-00-00</div>
+          </div>
+        </div>
+        <div class="loc-row">
+          <div class="loc-icon">📱</div>
+          <div>
+            <div class="loc-rtitle">Telegram / Instagram</div>
+            <div class="loc-rval">@munomebel</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="map-box reveal d2">
+      <iframe
+        src="https://www.openstreetmap.org/export/embed.html?bbox=69.24%2C41.29%2C69.32%2C41.34&layer=mapnik&marker=41.3111%2C69.2797"
+        allowfullscreen loading="lazy" title="Muno Mebel Showroom">
+      </iframe>
+      <div class="map-pin">📍 Muno Mebel · Ташкент</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-rings"><span></span><span></span><span></span></div>
+  <div class="cta-inner reveal">
+    <h2 class="cta-title" data-i18n="cta_title">Создадим мебель вашей <em>мечты</em></h2>
+    <p class="cta-text"  data-i18n="cta_text">Оставьте заявку — наш дизайнер позвонит в течение часа и предложит идеи бесплатно.</p>
+    <div class="cta-btns">
+      <a href="tel:+998712000000"    class="btn-honey"         data-i18n="cta_call">Позвонить нам</a>
+      <a href="https://t.me/munomebel" class="btn-outline-light">Telegram →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ФУТЕР -->
+<footer>
+  <div class="footer-logo">Muno <span>Mebel</span></div>
+  <ul class="footer-nav">
+    <li><a href="#about"    data-i18n="nav_about">О нас</a></li>
+    <li><a href="#values"   data-i18n="nav_values">Ценности</a></li>
+    <li><a href="#process"  data-i18n="nav_process">Процесс</a></li>
+    <li><a href="#team"     data-i18n="nav_team">Команда</a></li>
+    <li><a href="#location" data-i18n="nav_location">Магазин</a></li>
+  </ul>
+  <span class="footer-copy">© 2025 Muno Mebel · Ташкент</span>
+</footer>
+
+<!-- ══════════════════════════════════
+     JAVASCRIPT
+══════════════════════════════════ -->
+<script>
+
+/* ─── ПЕРЕВОДЫ ─────────────────────────────────────── */
+const T = {
+  ru: {
+    nav_about:'О нас', nav_values:'Ценности', nav_process:'Процесс',
+    nav_team:'Команда', nav_location:'Магазин', nav_contact:'Связаться',
+    hero_badge:'Ташкент · С 2010 года',
+    hero_t1:'Мебель,', hero_t2:'которая', hero_t3:'живёт', hero_t4:'в доме',
+    hero_sub:'Muno Mebel — семейная мастерская в Ташкенте. Мы создаём мебель с душой: продуманную, тёплую и долговечную.',
+    hero_btn1:'Узнать о нас', hero_btn2:'Найти магазин',
+    hero_tag:'Коллекция 2025', hero_years:'Лет опыта', ph_photo:'Фото',
+    strip_s:'Диваны', strip_c:'Кресла', strip_t:'Столы',
+    strip_b:'Кровати', strip_w:'Шкафы',
+    strip_hand:'Ручная работа', strip_nat:'Натуральные материалы',
+    strip_wood:'Массив дерева', strip_custom:'Индивидуальный заказ', strip_gar:'Гарантия 5 лет',
+    about_label:'История бренда',
+    about_title:'Мы делаем мебель так,<br>как делали <em>деды</em>',
+    about_p1:'Muno Mebel начался в 2010 году с небольшой мастерской в Ташкенте. Основатель Мухаммад Нуров вложил в дело всё, что умел — уважение к дереву, честный труд и любовь к красивым вещам.',
+    about_p2:'Сегодня мы — команда из 18 мастеров. Подход не изменился: никаких шаблонов, только живая работа руками и внимание к каждой детали.',
+    about_quote:'«Хорошая мебель — это не мода. Это память, которая передаётся из поколения в поколение.»',
+    about_cite:'— Мухаммад Нуров, основатель',
+    ag_mat:'Наш материал', ag_hand:'Ручной труд', ag_eco:'Экологично',
+    val_label:'Наши принципы', val_title:'Почему выбирают Muno Mebel',
+    val_sub:'Три вещи, которые мы никогда не компромиссим.',
+    v1_t:'Только натуральное', v1_p:'Работаем с массивом дуба, ясеня и ореха. Никаких ДСП. Натуральное дерево дышит и служит десятилетиями.',
+    v2_t:'Честная цена', v2_p:'Производим сами — без посредников. Смета прозрачна с первого дня, никаких скрытых доплат.',
+    v3_t:'Под ваш интерьер', v3_p:'Каждый заказ — отдельный проект. Мебель под ваш размер, цвет и образ жизни.',
+    n1:'Лет на рынке', n2:'Довольных семей', n3:'Мастеров', n4:'Лет гарантии',
+    proc_label:'Как мы работаем', proc_title:'От встречи до <em>готовой мебели</em>',
+    s1_t:'Встреча', s1_p:'Приезжаем к вам или принимаем в шоуруме. Слушаем, задаём вопросы, замеряем. Без давления.',
+    s2_t:'Проект', s2_p:'3D-визуализация вашей мебели в вашем интерьере до начала работы.',
+    s3_t:'Изготовление', s3_p:'Мастера работают руками. Каждая деталь проверяется трижды. Срок — 4–6 недель.',
+    s4_t:'Доставка', s4_p:'Привозим, собираем, убираем за собой. Гарантия 5 лет с первого дня.',
+    team_label:'Наша команда', team_title:'Люди за мебелью',
+    t1_role:'Основатель · Мастер', t1_bio:'25 лет работы с деревом. Начинал с отцовской мастерской, сегодня руководит командой.',
+    t2_role:'Главный дизайнер', t2_bio:'10 лет опыта в интерьерном дизайне. Превращает идеи в точные технические задания.',
+    t3_role:'Менеджер проектов', t3_bio:'Следит за сроками. Первый ответит на ваш звонок.',
+    loc_label:'Наш шоурум', loc_title:'Приходи, потрогай <em>вживую</em>',
+    loc_desc:'В нашем шоуруме вы можете увидеть все коллекции, почувствовать материалы и поговорить с дизайнером. Вход свободный.',
+    loc_addr_t:'Адрес', loc_hours_t:'Часы работы', loc_phone_t:'Телефон',
+    loc_hours_v:'Пн–Сб: 10:00–20:00 · Вс: 11:00–18:00',
+    cta_title:'Создадим мебель вашей <em>мечты</em>',
+    cta_text:'Оставьте заявку — дизайнер позвонит в течение часа и предложит идеи бесплатно.',
+    cta_call:'Позвонить нам',
+  },
+  en: {
+    nav_about:'About', nav_values:'Values', nav_process:'Process',
+    nav_team:'Team', nav_location:'Showroom', nav_contact:'Contact',
+    hero_badge:'Tashkent · Since 2010',
+    hero_t1:'Furniture,', hero_t2:'that', hero_t3:'lives', hero_t4:'in your home',
+    hero_sub:'Muno Mebel is a family workshop in Tashkent. We craft furniture with soul — thoughtful, warm and built to last.',
+    hero_btn1:'About us', hero_btn2:'Find showroom',
+    hero_tag:'Collection 2025', hero_years:'Years of exp.', ph_photo:'Photo',
+    strip_s:'Sofas', strip_c:'Armchairs', strip_t:'Tables',
+    strip_b:'Beds', strip_w:'Wardrobes',
+    strip_hand:'Handmade', strip_nat:'Natural materials',
+    strip_wood:'Solid wood', strip_custom:'Custom order', strip_gar:'5-year warranty',
+    about_label:'Brand story',
+    about_title:'We make furniture<br>the old-fashioned <em>way</em>',
+    about_p1:'Muno Mebel started in 2010 in a small Tashkent workshop. Founder Muhammad Nurov brought everything he knew — respect for wood, honest craft, and love for beautiful things.',
+    about_p2:'Today we are a team of 18 craftsmen. The approach has not changed: no templates, only hands-on work and attention to every detail.',
+    about_quote:'"Good furniture is not fashion. It is memory passed from generation to generation."',
+    about_cite:'— Muhammad Nurov, founder',
+    ag_mat:'Our material', ag_hand:'Handmade', ag_eco:'Eco-friendly',
+    val_label:'Our principles', val_title:'Why choose Muno Mebel',
+    val_sub:'Three things we never compromise on.',
+    v1_t:'Natural only', v1_p:'We work with solid oak, ash and walnut. No chipboard. Natural wood breathes and lasts for decades.',
+    v2_t:'Fair price', v2_p:'We manufacture ourselves — no middlemen. The estimate is transparent from day one.',
+    v3_t:'For your interior', v3_p:'Every order is a unique project tailored to your room, your colour and your lifestyle.',
+    n1:'Years in business', n2:'Happy families', n3:'Craftsmen', n4:'Year warranty',
+    proc_label:'How we work', proc_title:'From first meeting to <em>finished piece</em>',
+    s1_t:'Consultation', s1_p:'We visit you or welcome you to the showroom. We listen, ask questions and take measurements.',
+    s2_t:'Design', s2_p:'3D visualisation of your furniture in your interior before production begins.',
+    s3_t:'Production', s3_p:'Craftsmen work by hand. Every detail checked three times. 4–6 weeks.',
+    s4_t:'Delivery', s4_p:'We deliver, assemble and clean up. 5-year guarantee from day one.',
+    team_label:'Our team', team_title:'The people behind the furniture',
+    t1_role:'Founder · Master', t1_bio:'25 years working with wood. Started in his father\'s workshop.',
+    t2_role:'Head Designer', t2_bio:'10 years in interior design. Turns ideas into precise briefs.',
+    t3_role:'Project Manager', t3_bio:'Ensures every order is on time. First to answer your call.',
+    loc_label:'Our showroom', loc_title:'Come and feel it <em>in person</em>',
+    loc_desc:'In our showroom you can see all collections, feel the materials and speak with a designer. Open to everyone.',
+    loc_addr_t:'Address', loc_hours_t:'Opening hours', loc_phone_t:'Phone',
+    loc_hours_v:'Mon–Sat: 10:00–20:00 · Sun: 11:00–18:00',
+    cta_title:'Let\'s create furniture of your <em>dreams</em>',
+    cta_text:'Leave a request — our designer will call within an hour and offer ideas for free.',
+    cta_call:'Call us',
+  },
+  uz: {
+    nav_about:'Biz haqda', nav_values:'Qadriyatlar', nav_process:'Jarayon',
+    nav_team:'Jamoa', nav_location:"Do'kon", nav_contact:"Bog'lanish",
+    hero_badge:'Toshkent · 2010 yildan',
+    hero_t1:'Mebel,', hero_t2:'uyingizda', hero_t3:'yashaydigan', hero_t4:'',
+    hero_sub:"Muno Mebel — Toshkentdagi oilaviy ustaxona. Biz jonli, iliq va uzoq xizmat qiladigan mebel yaratamiz.",
+    hero_btn1:'Biz haqda', hero_btn2:"Do'konni toping",
+    hero_tag:'2025 kolleksiyasi', hero_years:'Yillik tajriba', ph_photo:'Rasm',
+    strip_s:'Divanlar', strip_c:'Kreslolar', strip_t:'Stollar',
+    strip_b:'Krovatlar', strip_w:'Shkaflar',
+    strip_hand:"Qo'l ishi", strip_nat:'Tabiiy materiallar',
+    strip_wood:"Massiv yog'och", strip_custom:'Individual buyurtma', strip_gar:'5 yil kafolat',
+    about_label:'Brend tarixi',
+    about_title:'Biz mebelni <em>ustalarcha</em> yasaymiz',
+    about_p1:"Muno Mebel 2010 yilda Toshkentdagi kichik ustaxonadan boshlandi. Muassisi Muhammad Nurov yog'ochga hurmat, halol mehnat va chiroyli narsalarga muhabbatini ishga soldi.",
+    about_p2:"Bugun biz 18 ustadan iborat jamoamiz. Yondashuv o'zgarmagan: qolip yo'q, faqat qo'l mehnati.",
+    about_quote:"«Yaxshi mebel moda emas. Bu avloddan avlodga o'tadigan xotira.»",
+    about_cite:'— Muhammad Nurov, muassis',
+    ag_mat:'Bizning material', ag_hand:"Qo'l mehnati", ag_eco:'Ekologik',
+    val_label:'Bizning tamoyillar', val_title:'Nima uchun Muno Mebel?',
+    val_sub:'Biz hech qachon murosaga bormaydigan uch narsa.',
+    v1_t:'Faqat tabiiy', v1_p:"Eman, kul va yong'oq massivi bilan ishlaymiz. DSP yo'q.",
+    v2_t:'Adolatli narx', v2_p:"O'zimiz ishlab chiqaramiz — vositachisiz. Smeta birinchi kundan shaffof.",
+    v3_t:'Sizning interyeringiz uchun', v3_p:"Har bir buyurtma — alohida loyiha. Xona o'lchamiga mos mebel.",
+    n1:'Yillik tajriba', n2:'Mamnun oilalar', n3:'Ustalar', n4:'Yil kafolat',
+    proc_label:'Qanday ishlaymiz', proc_title:'Uchrashuvdan <em>tayyor mebelgacha</em>',
+    s1_t:'Uchrashuv', s1_p:"Sizga boramiz yoki showroomimizda kutib olamiz. Tinglash, o'lchash.",
+    s2_t:'Loyiha', s2_p:'Ishni boshlashdan oldin interyer 3D-vizualizatsiyasi.',
+    s3_t:'Ishlab chiqarish', s3_p:"Ustalar qo'l bilan ishlaydi. Har bir detal uch marta tekshiriladi. 4–6 hafta.",
+    s4_t:'Yetkazib berish', s4_p:'Olib kelamiz, yig\'amiz, tozalaymiz. 5 yil kafolat.',
+    team_label:'Bizning jamoa', team_title:'Mebel ortidagi odamlar',
+    t1_role:'Muassis · Usta', t1_bio:"25 yil yog'och bilan ishlash tajribasi.",
+    t2_role:'Bosh dizayner', t2_bio:'Interyer dizaynida 10 yillik tajriba.',
+    t3_role:'Loyiha menejeri', t3_bio:"Har bir buyurtma vaqtida bajarilishini nazorat qiladi.",
+    loc_label:'Bizning showroom', loc_title:'Keling, <em>jonli</em> ko\'ring',
+    loc_desc:"Showroomimizda barcha kolleksiyalarni ko'rishingiz va dizayner bilan gaplashishingiz mumkin.",
+    loc_addr_t:'Manzil', loc_hours_t:'Ish vaqti', loc_phone_t:'Telefon',
+    loc_hours_v:"Du–Sha: 10:00–20:00 · Ya: 11:00–18:00",
+    cta_title:'Orzu mebelingizni <em>birga</em> yarataylik',
+    cta_text:"Ariza qoldiring — dizayner bir soat ichida qo'ng'iroq qiladi.",
+    cta_call:"Qo'ng'iroq qilish",
+  }
+};
+
+/* ─── ПРИМЕНИТЬ ЯЗЫК ───────────────────────────────── */
+function applyLang(lang) {
+  const L = T[lang];
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const k = el.dataset.i18n;
+    if (L[k] !== undefined) el.innerHTML = L[k];
+  });
+  document.querySelectorAll('.lang-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.lang === lang);
+  });
+}
+
+document.querySelectorAll('.lang-btn').forEach(btn => {
+  btn.addEventListener('click', () => applyLang(btn.dataset.lang));
+});
+
+/* ─── ТЕМА ──────────────────────────────────────────── */
+let theme = 'light';
+document.getElementById('themeBtn').addEventListener('click', () => {
+  theme = theme === 'light' ? 'dark' : 'light';
+  document.documentElement.setAttribute('data-theme', theme);
+  document.getElementById('themeBtn').textContent = theme === 'dark' ? '☀️' : '🌙';
+});
+
+/* ─── СКРОЛЛ → НАВБАР ──────────────────────────────── */
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 40);
+}, { passive: true });
+
+/* ─── МОБИЛЬНОЕ МЕНЮ ───────────────────────────────── */
+const burger     = document.getElementById('burgerBtn');
+const mobileMenu = document.getElementById('mobileMenu');
+
+burger.addEventListener('click', () => {
+  const isOpen = mobileMenu.classList.toggle('open');
+  burger.classList.toggle('open', isOpen);
+  document.body.style.overflow = isOpen ? 'hidden' : '';
+});
+
+function closeMobile() {
+  mobileMenu.classList.remove('open');
+  burger.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+/* ─── SCROLL REVEAL ────────────────────────────────── */
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('on');
+      obs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.08 });
+
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+/* ─── КАСТОМНЫЙ КУРСОР ─────────────────────────────── */
+const dot  = document.getElementById('cur-dot');
+const ring = document.getElementById('cur-ring');
+let mx = 0, my = 0, rx = 0, ry = 0;
+
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  dot.style.left  = mx + 'px';
+  dot.style.top   = my + 'px';
+}, { passive: true });
+
+(function loop() {
+  rx += (mx - rx) * 0.1;
+  ry += (my - ry) * 0.1;
+  ring.style.left = rx + 'px';
+  ring.style.top  = ry + 'px';
+  requestAnimationFrame(loop);
+})();
+
+const hoverEls = document.querySelectorAll('a, button, .val-card, .team-card, .proc-step, .ap-box');
+hoverEls.forEach(el => {
+  el.addEventListener('mouseenter', () => {
+    dot.style.width  = '14px'; dot.style.height = '14px';
+    ring.style.width = '48px'; ring.style.height = '48px';
+    ring.style.opacity = '1';
+  });
+  el.addEventListener('mouseleave', () => {
+    dot.style.width  = '8px';  dot.style.height = '8px';
+    ring.style.width = '32px'; ring.style.height = '32px';
+    ring.style.opacity = '0.6';
+  });
+});
+
+</script>
+</body>
+</html>
